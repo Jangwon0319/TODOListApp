@@ -8,6 +8,7 @@
     android:padding="16dp"
     tools:context=".TaskDetailActivity">
 
+    <!-- 기존 제목 표시 -->
     <TextView
         android:id="@+id/detail_title"
         android:layout_width="wrap_content"
@@ -16,6 +17,7 @@
         android:paddingBottom="8dp"
         android:text="Task Title" />
 
+    <!-- 기존 설명 표시 -->
     <TextView
         android:id="@+id/detail_description"
         android:layout_width="wrap_content"
@@ -23,30 +25,28 @@
         android:paddingBottom="16dp"
         android:text="Task Description" />
 
-    <CheckBox
-        android:id="@+id/detail_checkbox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="작업 완료로 표시" />
-
+    <!-- 제목 수정 -->
     <EditText
         android:id="@+id/detail_edit_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="제목 수정" />
 
+    <!-- 설명 수정 -->
     <EditText
         android:id="@+id/detail_edit_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="설명 수정" />
 
+    <!-- 수정 버튼 -->
     <Button
         android:id="@+id/button_update"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="수정" />
 
+    <!-- 삭제 버튼 -->
     <Button
         android:id="@+id/button_delete"
         android:layout_width="match_parent"

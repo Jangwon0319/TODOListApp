@@ -1,6 +1,12 @@
 package com.example.todolistapp;
 
-public class TodoItem {
+/* ================================ */
+/*         TodoItem.java             */
+/* ================================ */
+
+import java.io.Serializable;
+
+public class TodoItem implements Serializable {
     private String title;
     private String description;
     private boolean isCompleted;

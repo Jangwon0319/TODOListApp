@@ -5,31 +5,34 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="?attr/selectableItemBackground"
-    android:clickable="true">
+    android:background="?attr/selectableItemBackground">
 
+    <!-- 작업 이름 -->
     <TextView
-        android:id="@+id/todo_title"
+        android:id="@+id/history_task_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:paddingBottom="4dp"
-        android:text="TODO Title" />
+        android:text="Task Name" />
 
+    <!-- 작업 기록 액션 -->
     <TextView
-        android:id="@+id/todo_description"
+        android:id="@+id/history_action"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="14sp"
-        android:text="TODO Description" />
+        android:text="Action Performed"
+        android:paddingTop="4dp" />
 
-    <CheckBox
-        android:id="@+id/todo_checkbox"
+    <!-- 작업 기록 시간 -->
+    <TextView
+        android:id="@+id/history_timestamp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:text="완료"
-        android:paddingStart="8dp" />
+        android:textSize="12sp"
+        android:textColor="#888888"
+        android:text="Timestamp"
+        android:paddingTop="2dp" />
 
 </LinearLayout>

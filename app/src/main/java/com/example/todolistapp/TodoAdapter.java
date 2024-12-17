@@ -35,12 +35,6 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoViewHolder
         TodoItem todo = todoList.get(position);
         holder.bind(todo);
 
-        holder.completedCheckBox.setOnCheckedChangeListener(null);
-        holder.completedCheckBox.setChecked(todo.isCompleted());
-        holder.completedCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            todo.setCompleted(isChecked);
-        });
-
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context, TaskDetailActivity.class);
             intent.putExtra("title", todo.getTitle());
@@ -58,19 +52,16 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoViewHolder
     public static class TodoViewHolder extends RecyclerView.ViewHolder {
         private TextView titleView;
         private TextView descriptionView;
-        private CheckBox completedCheckBox;
 
         public TodoViewHolder(@NonNull View itemView) {
             super(itemView);
             titleView = itemView.findViewById(R.id.todo_title);
             descriptionView = itemView.findViewById(R.id.todo_description);
-            completedCheckBox = itemView.findViewById(R.id.todo_checkbox);
         }
 
         public void bind(TodoItem todo) {
             titleView.setText(todo.getTitle());
             descriptionView.setText(todo.getDescription());
-            completedCheckBox.setChecked(todo.isCompleted());
         }
     }
 }

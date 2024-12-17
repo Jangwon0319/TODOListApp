@@ -14,16 +14,21 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private TodoAdapter adapter;
     private List<TodoItem> todoList = new ArrayList<>();
+    private List<HistoryItem> historyList = new ArrayList<>();
     private EditText editTextTitle;
     private EditText editTextDescription;
     private Button addButton;
+    private Button historyButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         editTextTitle = findViewById(R.id.edit_text_title);
         editTextDescription = findViewById(R.id.edit_text_description);
         addButton = findViewById(R.id.button_add);
+        historyButton = findViewById(R.id.button_history);
 
         adapter = new TodoAdapter(todoList, this);
         recyclerView.setAdapter(adapter);
@@ -44,11 +50,19 @@ public class MainActivity extends AppCompatActivity {
             String description = editTextDescription.getText().toString();
 
             if (!title.isEmpty() && !description.isEmpty()) {
-                todoList.add(new TodoItem(title, description, false));
+                TodoItem newItem = new TodoItem(title, description, false);
+                todoList.add(newItem);
+                historyList.add(new HistoryItem(title, "Added", getCurrentTimestamp(), newItem));
                 adapter.notifyDataSetChanged();
                 editTextTitle.setText("");
                 editTextDescription.setText("");
             }
+        });
+
+        historyButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, HistoryActivity.class);
+            intent.putExtra("historyList", new ArrayList<>(historyList));
+            startActivity(intent);
         });
     }
 
@@ -59,6 +73,8 @@ public class MainActivity extends AppCompatActivity {
             int position = data.getIntExtra("position", -1);
             if (position != -1) {
                 if (data.getBooleanExtra("delete", false)) {
+                    TodoItem deletedItem = todoList.get(position);
+                    historyList.add(new HistoryItem(deletedItem.getTitle(), "Deleted", getCurrentTimestamp(), deletedItem));
                     todoList.remove(position);
                     adapter.notifyItemRemoved(position);
                 } else {
@@ -67,9 +83,15 @@ public class MainActivity extends AppCompatActivity {
                     TodoItem item = todoList.get(position);
                     item.setTitle(newTitle);
                     item.setDescription(newDescription);
+                    historyList.add(new HistoryItem(newTitle, "Updated", getCurrentTimestamp(), item));
                     adapter.notifyItemChanged(position);
                 }
             }
         }
+    }
+
+    private String getCurrentTimestamp() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        return sdf.format(new Date());
     }
 }

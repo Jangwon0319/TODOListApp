@@ -26,6 +26,9 @@
         <!-- TaskDetailActivity 등록 -->
         <activity android:name=".TaskDetailActivity" />
 
+        <!-- HistoryActivity 등록 -->
+        <activity android:name=".HistoryActivity" />
+
     </application>
 
 </manifest>

@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class TaskDetailActivity extends AppCompatActivity {
+    private TextView detailTitle;
+    private TextView detailDescription;
     private EditText editTitle;
     private EditText editDescription;
     private Button updateButton;
@@ -21,6 +23,8 @@ public class TaskDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_detail);
 
+        detailTitle = findViewById(R.id.detail_title);
+        detailDescription = findViewById(R.id.detail_description);
         editTitle = findViewById(R.id.detail_edit_title);
         editDescription = findViewById(R.id.detail_edit_description);
         updateButton = findViewById(R.id.button_update);
@@ -31,6 +35,8 @@ public class TaskDetailActivity extends AppCompatActivity {
         String description = intent.getStringExtra("description");
         position = intent.getIntExtra("position", -1);
 
+        detailTitle.setText(title);
+        detailDescription.setText(description);
         editTitle.setText(title);
         editDescription.setText(description);
 

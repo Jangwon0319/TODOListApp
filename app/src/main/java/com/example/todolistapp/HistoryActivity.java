@@ -10,23 +10,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HistoryActivity extends AppCompatActivity {
-    private RecyclerView recyclerView;
-    private HistoryAdapter adapter;
-    private List<String> logList = new ArrayList<>();
+    private RecyclerView historyRecyclerView;
+    private HistoryAdapter historyAdapter;
+    private List<HistoryItem> historyList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
 
-        recyclerView = findViewById(R.id.recycler_view_history);
-        adapter = new HistoryAdapter(logList);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        historyRecyclerView = findViewById(R.id.recycler_view_history);
+        historyAdapter = new HistoryAdapter(historyList, this);
+        historyRecyclerView.setAdapter(historyAdapter);
+        historyRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        logList.add("Task 1 was added");
-        logList.add("Task 2 was updated");
-        logList.add("Task 3 was deleted");
-        adapter.notifyDataSetChanged();
+        if (getIntent().hasExtra("historyList")) {
+            historyList.addAll((ArrayList<HistoryItem>) getIntent().getSerializableExtra("historyList"));
+        }
+
+        historyAdapter.notifyDataSetChanged();
     }
 }

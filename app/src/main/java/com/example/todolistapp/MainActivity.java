@@ -1,10 +1,12 @@
 package com.example.todolistapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -33,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         editTextDescription = findViewById(R.id.edit_text_description);
         addButton = findViewById(R.id.button_add);
 
-        adapter = new TodoAdapter(todoList);
+        adapter = new TodoAdapter(todoList, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -48,5 +50,26 @@ public class MainActivity extends AppCompatActivity {
                 editTextDescription.setText("");
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
+            int position = data.getIntExtra("position", -1);
+            if (position != -1) {
+                if (data.getBooleanExtra("delete", false)) {
+                    todoList.remove(position);
+                    adapter.notifyItemRemoved(position);
+                } else {
+                    String newTitle = data.getStringExtra("title");
+                    String newDescription = data.getStringExtra("description");
+                    TodoItem item = todoList.get(position);
+                    item.setTitle(newTitle);
+                    item.setDescription(newDescription);
+                    adapter.notifyItemChanged(position);
+                }
+            }
+        }
     }
 }

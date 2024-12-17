@@ -24,5 +24,12 @@
         android:textSize="14sp"
         android:text="TODO Description" />
 
+    <CheckBox
+        android:id="@+id/todo_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:text="완료"
+        android:paddingStart="8dp"/>
 
 </LinearLayout>

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".HistoryActivity">
 
     <TextView
         android:id="@+id/empty_view"
@@ -13,11 +13,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:visibility="gone"
-        android:text="할 일을 추가해보세요!"
+        android:text="기록이 없습니다."
         android:textSize="18sp" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_todo"
+        android:id="@+id/recycler_view_history"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="16dp"/>

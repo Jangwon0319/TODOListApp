@@ -39,6 +39,13 @@
         android:layout_height="wrap_content"
         android:hint="설명 수정" />
 
+    <!-- 카테고리 선택 스피너 -->
+    <Spinner
+        android:id="@+id/spinner_detail_category"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp" />
+
     <!-- 수정 버튼 -->
     <Button
         android:id="@+id/button_update"

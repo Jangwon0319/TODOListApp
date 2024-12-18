@@ -24,12 +24,13 @@
         android:textSize="14sp"
         android:text="TODO Description" />
 
-    <CheckBox
-        android:id="@+id/todo_checkbox"
+    <TextView
+        android:id="@+id/todo_category"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:text="완료"
-        android:paddingStart="8dp" />
+        android:textSize="14sp"
+        android:textColor="#888888"
+        android:paddingTop="4dp"
+        android:text="Category: 공부" />
 
 </LinearLayout>

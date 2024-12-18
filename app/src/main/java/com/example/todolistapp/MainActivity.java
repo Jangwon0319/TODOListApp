@@ -2,8 +2,10 @@ package com.example.todolistapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
@@ -27,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private List<HistoryItem> historyList = new ArrayList<>();
     private EditText editTextTitle;
     private EditText editTextDescription;
+    private Spinner categorySpinner;
     private Button addButton;
     private Button historyButton;
 
@@ -38,24 +41,31 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler_view_todo);
         editTextTitle = findViewById(R.id.edit_text_title);
         editTextDescription = findViewById(R.id.edit_text_description);
+        categorySpinner = findViewById(R.id.spinner_category);
         addButton = findViewById(R.id.button_add);
         historyButton = findViewById(R.id.button_history);
 
-        adapter = new TodoAdapter(todoList, this);
-        recyclerView.setAdapter(adapter);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.categories_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        categorySpinner.setAdapter(adapter);
+
+        this.adapter = new TodoAdapter(todoList, this);
+        recyclerView.setAdapter(this.adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         addButton.setOnClickListener(v -> {
             String title = editTextTitle.getText().toString();
             String description = editTextDescription.getText().toString();
+            String category = categorySpinner.getSelectedItem().toString();
 
             if (!title.isEmpty() && !description.isEmpty()) {
-                TodoItem newItem = new TodoItem(title, description, false);
+                TodoItem newItem = new TodoItem(title, description, false, category);
                 todoList.add(newItem);
                 historyList.add(new HistoryItem(title, "Added", getCurrentTimestamp(), newItem));
-                adapter.notifyDataSetChanged();
+                this.adapter.notifyDataSetChanged();
                 editTextTitle.setText("");
                 editTextDescription.setText("");
+                categorySpinner.setSelection(0);
             }
         });
 
@@ -76,15 +86,17 @@ public class MainActivity extends AppCompatActivity {
                     TodoItem deletedItem = todoList.get(position);
                     historyList.add(new HistoryItem(deletedItem.getTitle(), "Deleted", getCurrentTimestamp(), deletedItem));
                     todoList.remove(position);
-                    adapter.notifyItemRemoved(position);
+                    this.adapter.notifyItemRemoved(position);
                 } else {
                     String newTitle = data.getStringExtra("title");
                     String newDescription = data.getStringExtra("description");
+                    String newCategory = data.getStringExtra("category");
                     TodoItem item = todoList.get(position);
                     item.setTitle(newTitle);
                     item.setDescription(newDescription);
+                    item.setCategory(newCategory);
                     historyList.add(new HistoryItem(newTitle, "Updated", getCurrentTimestamp(), item));
-                    adapter.notifyItemChanged(position);
+                    this.adapter.notifyItemChanged(position);
                 }
             }
         }

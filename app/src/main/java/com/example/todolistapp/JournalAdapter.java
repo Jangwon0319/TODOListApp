@@ -1,5 +1,6 @@
 package com.example.todolistapp;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -38,7 +39,7 @@ public class JournalAdapter extends RecyclerView.Adapter<JournalAdapter.JournalV
             intent.putExtra("title", journal.getTitle());
             intent.putExtra("content", journal.getContent());
             intent.putExtra("position", position);
-            context.startActivity(intent);
+            ((Activity) context).startActivityForResult(intent, 1);
         });
     }
 
@@ -62,4 +63,3 @@ public class JournalAdapter extends RecyclerView.Adapter<JournalAdapter.JournalV
         }
     }
 }
-

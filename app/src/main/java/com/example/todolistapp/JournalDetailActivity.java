@@ -13,6 +13,7 @@ public class JournalDetailActivity extends AppCompatActivity {
     private EditText editContent;
     private Button updateButton;
     private Button deleteButton;
+    private int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,17 +28,19 @@ public class JournalDetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String title = intent.getStringExtra("title");
         String content = intent.getStringExtra("content");
+        position = intent.getIntExtra("position", -1);
 
         editTitle.setText(title);
         editContent.setText(content);
 
         updateButton.setOnClickListener(v -> {
-            String newTitle = editTitle.getText().toString();
-            String newContent = editContent.getText().toString();
+            String newTitle = editTitle.getText().toString().trim();
+            String newContent = editContent.getText().toString().trim();
 
             Intent resultIntent = new Intent();
             resultIntent.putExtra("title", newTitle);
             resultIntent.putExtra("content", newContent);
+            resultIntent.putExtra("position", position);
             setResult(Activity.RESULT_OK, resultIntent);
             finish();
         });
@@ -45,6 +48,7 @@ public class JournalDetailActivity extends AppCompatActivity {
         deleteButton.setOnClickListener(v -> {
             Intent resultIntent = new Intent();
             resultIntent.putExtra("delete", true);
+            resultIntent.putExtra("position", position);
             setResult(Activity.RESULT_OK, resultIntent);
             finish();
         });

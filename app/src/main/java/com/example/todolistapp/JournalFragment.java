@@ -1,5 +1,7 @@
 package com.example.todolistapp;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,5 +55,28 @@ public class JournalFragment extends Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == Activity.RESULT_OK && data != null) {
+            int position = data.getIntExtra("position", -1);
+            if (position != -1 && position < journalList.size()) {
+                if (data.getBooleanExtra("delete", false)) {
+                    journalList.remove(position);
+                    adapter.notifyItemRemoved(position);
+                } else {
+                    String newTitle = data.getStringExtra("title");
+                    String newContent = data.getStringExtra("content");
+
+                    JournalItem updatedItem = journalList.get(position);
+                    updatedItem.setTitle(newTitle);
+                    updatedItem.setContent(newContent);
+
+                    adapter.notifyItemChanged(position);
+                }
+            }
+        }
     }
 }

@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -39,7 +38,6 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoViewHolder
             Intent intent = new Intent(context, TaskDetailActivity.class);
             intent.putExtra("title", todo.getTitle());
             intent.putExtra("description", todo.getDescription());
-            intent.putExtra("category", todo.getCategory());
             intent.putExtra("position", position);
             ((Activity) context).startActivityForResult(intent, 1);
         });
@@ -51,21 +49,17 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoViewHolder
     }
 
     public static class TodoViewHolder extends RecyclerView.ViewHolder {
-        private TextView titleView;
-        private TextView descriptionView;
-        private TextView categoryView;
+        private TextView titleView, descriptionView;
 
         public TodoViewHolder(@NonNull View itemView) {
             super(itemView);
             titleView = itemView.findViewById(R.id.todo_title);
             descriptionView = itemView.findViewById(R.id.todo_description);
-            categoryView = itemView.findViewById(R.id.todo_category);
         }
 
         public void bind(TodoItem todo) {
             titleView.setText(todo.getTitle());
             descriptionView.setText(todo.getDescription());
-            categoryView.setText(todo.getCategory());
         }
     }
 }

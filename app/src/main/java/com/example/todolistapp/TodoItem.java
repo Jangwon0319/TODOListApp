@@ -1,22 +1,16 @@
 package com.example.todolistapp;
 
-/* ================================ */
-/*         TodoItem.java             */
-/* ================================ */
-
 import java.io.Serializable;
 
 public class TodoItem implements Serializable {
     private String title;
     private String description;
     private boolean isCompleted;
-    private String category;
 
-    public TodoItem(String title, String description, boolean isCompleted, String category) {
+    public TodoItem(String title, String description, boolean isCompleted) {
         this.title = title;
         this.description = description;
         this.isCompleted = isCompleted;
-        this.category = category;
     }
 
     public String getTitle() {
@@ -41,13 +35,5 @@ public class TodoItem implements Serializable {
 
     public void setCompleted(boolean completed) {
         isCompleted = completed;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
     }
 }

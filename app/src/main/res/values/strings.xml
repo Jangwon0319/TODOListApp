@@ -1,10 +1,5 @@
 <resources>
     <string name="app_name">TodoListApp</string>
 
-    <string-array name="categories_array">
-        <item>공부</item>
-        <item>운동</item>
-        <item>약속</item>
-        <item>기타</item>
-    </string-array>
+
 </resources>

@@ -27,7 +27,7 @@
         <activity android:name=".TaskDetailActivity" />
 
         <!-- HistoryActivity 등록 -->
-        <activity android:name=".HistoryActivity" />
+        <activity android:name=".JournalDetailActivity" />
 
     </application>
 

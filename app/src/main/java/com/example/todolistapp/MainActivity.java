@@ -16,7 +16,6 @@ public class MainActivity extends AppCompatActivity {
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
 
-        // Use the existing activity_main as the main layout
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new TodoFragment()).commit();
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
@@ -41,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
         if (fragment instanceof TodoFragment) {
+            fragment.onActivityResult(requestCode, resultCode, data);
+        } else if (fragment instanceof JournalFragment) {
             fragment.onActivityResult(requestCode, resultCode, data);
         }
     }

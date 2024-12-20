@@ -41,13 +41,13 @@ public class TodoFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         addButton.setOnClickListener(v -> {
-            String title = editTextTitle.getText().toString();
-            String description = editTextDescription.getText().toString();
+            String title = editTextTitle.getText().toString().trim();
+            String description = editTextDescription.getText().toString().trim();
 
-            if (!title.isEmpty() && !description.isEmpty()) {
+            if (!title.isEmpty() && title.length() <= 50 && !description.isEmpty() && description.length() <= 200) {
                 TodoItem newItem = new TodoItem(title, description, false);
                 todoList.add(newItem);
-                this.adapter.notifyDataSetChanged();
+                this.adapter.notifyItemInserted(todoList.size() - 1);
                 editTextTitle.setText("");
                 editTextDescription.setText("");
             }
@@ -63,11 +63,9 @@ public class TodoFragment extends Fragment {
             int position = data.getIntExtra("position", -1);
             if (position != -1 && position < todoList.size()) {
                 if (data.getBooleanExtra("delete", false)) {
-                    // 삭제 처리
                     todoList.remove(position);
                     adapter.notifyItemRemoved(position);
                 } else {
-                    // 수정된 데이터 반영
                     String newTitle = data.getStringExtra("title");
                     String newDescription = data.getStringExtra("description");
 

@@ -59,13 +59,16 @@ public class TodoFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
         if (requestCode == 1 && resultCode == Activity.RESULT_OK && data != null) {
             int position = data.getIntExtra("position", -1);
             if (position != -1 && position < todoList.size()) {
                 if (data.getBooleanExtra("delete", false)) {
+                    // 삭제 처리
                     todoList.remove(position);
                     adapter.notifyItemRemoved(position);
                 } else {
+                    // 수정 처리
                     String newTitle = data.getStringExtra("title");
                     String newDescription = data.getStringExtra("description");
 
@@ -78,4 +81,5 @@ public class TodoFragment extends Fragment {
             }
         }
     }
+
 }

@@ -60,13 +60,16 @@ public class JournalFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
         if (requestCode == 1 && resultCode == Activity.RESULT_OK && data != null) {
             int position = data.getIntExtra("position", -1);
             if (position != -1 && position < journalList.size()) {
                 if (data.getBooleanExtra("delete", false)) {
+                    // 삭제 처리
                     journalList.remove(position);
                     adapter.notifyItemRemoved(position);
                 } else {
+                    // 수정 처리
                     String newTitle = data.getStringExtra("title");
                     String newContent = data.getStringExtra("content");
 
@@ -79,4 +82,5 @@ public class JournalFragment extends Fragment {
             }
         }
     }
+
 }

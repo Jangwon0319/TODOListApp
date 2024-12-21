@@ -23,10 +23,10 @@ public class TaskDetailActivity extends AppCompatActivity {
 
         TextView detailTitle = findViewById(R.id.detail_title);
         TextView detailDescription = findViewById(R.id.detail_description);
-        EditText editTitle = findViewById(R.id.detail_edit_title);
-        EditText editDescription = findViewById(R.id.detail_edit_description);
-        Button updateButton = findViewById(R.id.button_update);
-        Button deleteButton = findViewById(R.id.button_delete);
+        editTitle = findViewById(R.id.detail_edit_title);
+        editDescription = findViewById(R.id.detail_edit_description);
+        updateButton = findViewById(R.id.button_update);
+        deleteButton = findViewById(R.id.button_delete);
 
         // 받는 데이터
         Intent intent = getIntent();
@@ -35,20 +35,20 @@ public class TaskDetailActivity extends AppCompatActivity {
         position = intent.getIntExtra("position", -1);
 
         // 기존 데이터를 UI에 반영
-        detailTitle.setText(title); // 기존 제목
-        detailDescription.setText(description); // 기존 설명
-        editTitle.setText(title); // 제목 수정 가능
-        editDescription.setText(description); // 설명 수정 가능
+        detailTitle.setText(title);
+        detailDescription.setText(description);
+        editTitle.setText(title);
+        editDescription.setText(description);
 
         // 수정 버튼 클릭 이벤트
         updateButton.setOnClickListener(v -> {
-            String newTitle = editTitle.getText().toString();
-            String newDescription = editDescription.getText().toString();
+            String newTitle = editTitle.getText().toString().trim();
+            String newDescription = editDescription.getText().toString().trim();
 
             Intent resultIntent = new Intent();
             resultIntent.putExtra("title", newTitle);
             resultIntent.putExtra("description", newDescription);
-            resultIntent.putExtra("position", position); // 변경된 위치 정보
+            resultIntent.putExtra("position", position);
             setResult(Activity.RESULT_OK, resultIntent);
             finish();
         });
@@ -56,10 +56,12 @@ public class TaskDetailActivity extends AppCompatActivity {
         // 삭제 버튼 클릭 이벤트
         deleteButton.setOnClickListener(v -> {
             Intent resultIntent = new Intent();
-            resultIntent.putExtra("delete", true); // 삭제 플래그 설정
+            resultIntent.putExtra("delete", true);
             resultIntent.putExtra("position", position);
             setResult(Activity.RESULT_OK, resultIntent);
             finish();
         });
     }
 }
+
+

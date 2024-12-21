@@ -34,11 +34,13 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoViewHolder
         TodoItem todo = todoList.get(position);
         holder.bind(todo);
 
+        // 클릭 이벤트: 수정 또는 삭제를 위한 TaskDetailActivity로 이동
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context, TaskDetailActivity.class);
             intent.putExtra("title", todo.getTitle());
             intent.putExtra("description", todo.getDescription());
             intent.putExtra("position", position);
+            intent.putExtra("type", "TODO"); // 구분 추가
             ((Activity) context).startActivityForResult(intent, 1);
         });
     }

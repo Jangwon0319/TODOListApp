@@ -52,16 +52,22 @@ public class MainActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        // 각각의 프래그먼트를 태그로 찾아서 호출
-        Fragment todoFragment = getSupportFragmentManager().findFragmentByTag("TODO_FRAGMENT");
-        Fragment journalFragment = getSupportFragmentManager().findFragmentByTag("JOURNAL_FRAGMENT");
-
-        if (todoFragment instanceof TodoFragment) {
-            todoFragment.onActivityResult(requestCode, resultCode, data);
-        }
-        if (journalFragment instanceof JournalFragment) {
-            journalFragment.onActivityResult(requestCode, resultCode, data);
+        // 각각 Fragment에 개별 처리 적용
+        if (resultCode == RESULT_OK && data != null) {
+            String type = data.getStringExtra("type");
+            if (type != null) {
+                if (type.equals("TODO")) {
+                    Fragment fragment = getSupportFragmentManager().findFragmentByTag("TODO_FRAGMENT");
+                    if (fragment instanceof TodoFragment) {
+                        fragment.onActivityResult(requestCode, resultCode, data);
+                    }
+                } else if (type.equals("JOURNAL")) {
+                    Fragment fragment = getSupportFragmentManager().findFragmentByTag("JOURNAL_FRAGMENT");
+                    if (fragment instanceof JournalFragment) {
+                        fragment.onActivityResult(requestCode, resultCode, data);
+                    }
+                }
+            }
         }
     }
-
 }

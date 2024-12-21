@@ -40,6 +40,7 @@ public class TodoFragment extends Fragment {
         recyclerView.setAdapter(this.adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        // 할 일 추가
         addButton.setOnClickListener(v -> {
             String title = editTextTitle.getText().toString().trim();
             String description = editTextDescription.getText().toString().trim();
@@ -59,7 +60,6 @@ public class TodoFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (requestCode == 1 && resultCode == Activity.RESULT_OK && data != null) {
             int position = data.getIntExtra("position", -1);
             if (position != -1 && position < todoList.size()) {
@@ -81,5 +81,4 @@ public class TodoFragment extends Fragment {
             }
         }
     }
-
 }
